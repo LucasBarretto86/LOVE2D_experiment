@@ -18,10 +18,10 @@ local char = {
 
 function love.load()
     char.animations = {
-        Animation("idle", "assets/sprites/boy.png", 32, 32, 1),
-        Animation("walking", "assets/sprites/boy.png", 32, 32, 1),
-        Animation("running", "assets/sprites/boy.png", 32, 32, 1),
-        Animation("jumping", "assets/sprites/boy.png", 32, 32, 1)
+        Animation:new("idle", "assets/sprites/boy.png", 32, 32, 1),
+        Animation:new("walking", "assets/sprites/boy.png", 32, 32, 1),
+        Animation:new("running", "assets/sprites/boy.png", 32, 32, 1),
+        Animation:new("jumping", "assets/sprites/boy.png", 32, 32, 1)
     }
 end
 

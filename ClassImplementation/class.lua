@@ -2,19 +2,20 @@ _G.Class = {}
 
 Class.__index = Class
 
-function Class:new()
-    local instance = {}
-    instance.__index = instance
-    instance.super = self
-    setmetatable(instance, self)
-    return instance
+function Class:create(name)
+    local class = {}
+    class.__index = class
+    class.super = self
+    class.name = name
+    setmetatable(class, self)
+    return class
 end
 
-function Class:constructor()
+function Class:new(...)
+    local class = setmetatable({}, self)
+    class:constructor(...)
+    return class
 end
 
-function Class:__call(...) --metamethod
-    local instance = setmetatable({}, self)
-    instance:constructor(...)
-    return instance
+function Class:constructor(...)
 end

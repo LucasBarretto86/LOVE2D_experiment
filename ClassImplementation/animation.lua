@@ -1,6 +1,6 @@
 require("class")
 
-local Animation = Class:new()
+local Animation = Class:create("Animation")
 
 function Animation:constructor(label, spritesheet, width, height, duration)
     self.label = string.lower((label or ""))
@@ -17,7 +17,6 @@ function Animation:constructor(label, spritesheet, width, height, duration)
     
     return Animation
 end
-
 function Animation:set_quads()
     for y = 0, self.spritesheet:getHeight() - self.height, self.height do
         for x = 0, self.spritesheet:getWidth() - self.width, self.width do
