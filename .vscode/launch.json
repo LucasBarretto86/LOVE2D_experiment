@@ -1,0 +1,9 @@
+    {
+        "type": "lua-local",
+        "request": "launch",
+        "name": "Debug Love",
+        "program": {
+            "command": "/usr/bin/love"
+        },
+        "args": [ "${workspaceFolder}"]
+    }
