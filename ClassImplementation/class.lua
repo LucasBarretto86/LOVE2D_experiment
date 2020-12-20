@@ -1,12 +1,11 @@
-_G.Class = {}
-
+Class = {}
 Class.__index = Class
 
-function Class:create(name)
+function Class:create(classname)
     local class = {}
     class.__index = class
     class.super = self
-    class.name = name
+    class.classname = classname
     setmetatable(class, self)
     return class
 end
@@ -18,4 +17,8 @@ function Class:new(...)
 end
 
 function Class:constructor(...)
+end
+
+function Class:getClassname()
+    return self.classname
 end
