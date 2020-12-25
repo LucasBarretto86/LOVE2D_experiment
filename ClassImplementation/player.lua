@@ -1,4 +1,3 @@
-require("class")
 local Avatar = require("avatar")
 local Player = Class:create("Player")
 
@@ -16,7 +15,7 @@ end
 function Player:draw()
     love.graphics.draw(
         self.avatar.animation.spritesheet,
-        self.avatar.animation.quads[self.avatar.animation.currentFrame],
+        self.avatar.animation.frame.quad,
         self.x,
         self.y,
         self.orientation,
@@ -24,15 +23,15 @@ function Player:draw()
     )
 end
 
-function Player:set_avatar(name)
+function Player:setAvatar(name)
     self.avatar = Avatar:new(name, self.width, self.height)
 end
 
-function Player:set_state(state)
+function Player:setState(state)
     self.state = string.lower(state)
 end
 
-function Player:set_orientation(orientation)
+function Player:setOrientation(orientation)
     self.orientation = orientation
 end
 
