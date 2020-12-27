@@ -1,9 +1,9 @@
 local Avatar = require("avatar")
 local Player = Class:create("Player")
 
-function Player:constructor(offset, width, height, orientation, drawscale)
-    self.x = 0 or offset.x
-    self.y = 0 or offset.y
+function Player:constructor(width, height, orientation, drawscale)
+    self.x = 0
+    self.y = 0
     self.width = width
     self.height = height
     self.state = "idle"
@@ -33,6 +33,13 @@ end
 
 function Player:setOrientation(orientation)
     self.orientation = orientation
+end
+
+function Player:origin()
+    return {
+        x = (self.x + self.width * 0.5) * self.drawscale,
+        y = (self.y + self.height * 0.5) * self.drawscale
+    }
 end
 
 return Player

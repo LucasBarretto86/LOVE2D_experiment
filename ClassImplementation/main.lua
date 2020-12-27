@@ -1,5 +1,5 @@
 local Player = require("player")
-local player = Player:new({x = 0, y = 0}, 32, 32)
+local player = Player:new(32, 32)
 
 function love.load()
     player:setAvatar("boy")
