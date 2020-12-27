@@ -9,7 +9,7 @@ function Avatar:constructor(name, width, height)
     self.animation = {}
 end
 
-function Avatar:setAnimation(label, start_from)
+function Avatar:setAnimation(label)
     if (#self.animations > 0) then
         for index = 1, #self.animations, 1 do
             if (self.animations[index].label == string.lower(label)) then
