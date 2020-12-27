@@ -15,10 +15,10 @@ end
 function Player:draw()
     love.graphics.draw(
         self.avatar.animation.spritesheet,
-        self.avatar.animation.frame.quad,
+        self.avatar.animation.current_frame.quad,
         self.x,
         self.y,
-        self.orientation,
+        0,
         self.drawscale
     )
 end
