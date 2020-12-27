@@ -52,7 +52,7 @@ function newAnimation(label, spritesheet, width, height, duration)
         height = height,
         duration = duration, --Defines whole animation duration
         length = 0, --Will defines the length of our animation
-        currentTime = 0, --Animation frame time accumulator
+        time = 0, --Animation frame time accumulator
         currentFrame = 0, --Animation frame number accumulator
         quads = {},
         play = function(self, dt)
@@ -110,11 +110,11 @@ function setQuads(animation, width, height)
 end
 
 function play(animation, dt)
-    animation.currentTime = animation.currentTime + dt
+    animation.time = animation.time + dt
 
-    if animation.currentTime >= animation.duration then
-        animation.currentTime = animation.currentTime - animation.duration
+    if animation.time >= animation.duration then
+        animation.time = animation.time - animation.duration
     end
 
-    animation.currentFrame = math.floor(animation.currentTime / animation.duration * animation.length) + 1
+    animation.currentFrame = math.floor(animation.time / animation.duration * animation.length) + 1
 end

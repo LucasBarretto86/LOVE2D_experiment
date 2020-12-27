@@ -1,19 +1,30 @@
 local Player = require("player")
-local player = Player:new({x = 0, y = 0}, 32, 32)
+local player = Player:new(32, 32)
 
 function love.load()
-    player:set_avatar("boy")
-    player.avatar:add_animation("idle", 4, 1)
-    player.avatar:add_animation("run", 10, 1)
-    player.avatar:add_animation("jump", 10, 1)
+    player:setAvatar("boy")
+    player.avatar:addAnimation("idle", 4, {2, 0.25, 0.1, 0.25}, true)
+    player.avatar:addAnimation("run", 10, 0.8, true)
+    player.avatar:addAnimation("jump", 10, 0.8)
+    player.avatar:setAnimation("idle")
 end
 
 function love.update(dt)
-    player:set_state("idle")
-    player.avatar:set_animation(player.state)
     player.avatar.animation:play(dt)
 end
 
 function love.draw()
     player:draw()
+end
+
+function love.keypressed(key, scancode, isrepeat)
+    if key == "space" then
+        player.avatar:setAnimation("jump")
+    elseif key == "left" then
+        player.avatar:setAnimation("run")
+    elseif key == "right" then
+        player.avatar:setAnimation("run")
+    else
+        player.avatar:setAnimation("idle")
+    end
 end

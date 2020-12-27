@@ -1,28 +1,66 @@
-require("class")
+local Frame = require("frame")
 local Animation = Class:create("Animation")
 
-function Animation:constructor(label, spritesheet, width, height, length, duration)
+function Animation:constructor(label, spritesheet_path, width, height, length, duration, loop)
     self.label = string.lower(label or "")
-    self.spritesheet = love.graphics.newImage(spritesheet)
-    self.duration = duration
-    self.currentTime = 0
-    self.currentFrame = 0
-    self.quads = {}
+    self.spritesheet = love.graphics.newImage(IMAGES_PATH .. spritesheet_path)
+    self.length = length
+    self.loop = loop
+    self.frames = {}
+    self.state = "loaded"
+    self.current_frame = {}
+    self.current_time = 0
     self.spritesheet:setFilter("nearest", "nearest")
+    self:setFrames(width, height, length, duration)
+end
 
-    for x = 0, (width * length), width do
-        table.insert(self.quads, love.graphics.newQuad(x, 0, width, height, self.spritesheet:getDimensions()))
+function Animation:setFrames(width, height, length, duration)
+    local sprite = {
+        width = width,
+        height = height,
+        offset = {x = -width, y = 0}
+    }
+
+    for index = 1, length, 1 do
+        sprite.position = index
+        sprite.offset.x = sprite.offset.x + width
+        table.insert(self.frames, Frame:new(sprite, self.spritesheet, duration, length))
+    end
+
+    self.current_frame = self.frames[1]
+end
+
+function Animation:play(deltaTime)
+    if self.state ~= "ended" then
+        self.current_time = self.current_time + deltaTime
+
+        if self.current_time >= self.current_frame.duration then
+            self.current_time = self.current_time - self.current_frame.duration
+            self.current_frame = self:nextFrame()
+        end
+    end
+
+    return self.state
+end
+
+function Animation:nextFrame()
+    if self.current_frame.position < self.length then
+        return self.frames[self.current_frame.position + 1]
+    else
+        if self.loop then
+            self.state = "playing"
+        else
+            self.state = "ended"
+        end
+
+        return self.frames[1]
     end
 end
 
-function Animation:play(dt)
-    self.currentTime = self.currentTime + dt
-
-    if self.currentTime >= self.duration then
-        self.currentTime = self.currentTime - self.duration
-    end
-
-    self.currentFrame = math.floor(self.currentTime / self.duration * #self.quads) + 1
+function Animation:reset()
+    self.state = "loaded"
+    self.current_frame = self.frames[1]
+    self.current_time = 0
 end
 
 return Animation
