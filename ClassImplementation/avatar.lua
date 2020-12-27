@@ -21,9 +21,9 @@ function Avatar:setAnimation(label, time)
     end
 end
 
-function Avatar:addAnimation(label, frames_count, duration)
+function Avatar:addAnimation(label, frames_count, duration, loop)
     local spritesheet_path = self.name .. "/" .. label .. ".png"
-    table.insert(self.animations, Animation:new(label, spritesheet_path, self.width, self.height, frames_count, duration))
+    table.insert(self.animations, Animation:new(label, spritesheet_path, self.width, self.height, frames_count, duration, loop))
 end
 
 return Avatar
