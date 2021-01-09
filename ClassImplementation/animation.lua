@@ -1,11 +1,12 @@
 local Frame = require("frame")
 local Animation = Class:create("Animation")
 
-function Animation:constructor(label, spritesheet_path, width, height, length, duration, loop)
+function Animation:constructor(label, spritesheet_path, width, height, length, duration, loop, sfx)
     self.label = string.lower(label or "")
     self.spritesheet = love.graphics.newImage(IMAGES_PATH .. spritesheet_path)
     self.length = length
     self.loop = loop
+    self.sfx = sfx
     self.frames = {}
     self.state = "loaded"
     self.current_frame = {}
@@ -37,6 +38,10 @@ function Animation:play(deltaTime)
         if self.current_time >= self.current_frame.duration then
             self.current_time = self.current_time - self.current_frame.duration
             self.current_frame = self:nextFrame()
+        end
+
+        if self.sfx ~= nil then
+            self.sfx:play(self.current_frame.position)
         end
     end
 

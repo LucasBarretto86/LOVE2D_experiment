@@ -3,9 +3,9 @@ local player = Player:new(32, 32)
 
 function love.load()
     player:setAvatar("boy")
-    player.avatar:addAnimation("idle", 4, {2, 0.25, 0.1, 0.25}, true)
+    player.avatar:addAnimation("idle", 4, {2, 0.25, 0.1, 0.25})
     player.avatar:addAnimation("run", 10, 0.8, true)
-    player.avatar:addAnimation("jump", 10, 0.8)
+    player.avatar:addAnimation("jump", 10, 0.8, false, true, 2)
     player.avatar:setAnimation("idle")
 end
 
