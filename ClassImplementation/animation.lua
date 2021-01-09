@@ -50,16 +50,16 @@ end
 
 function Animation:nextFrame()
     if self.current_frame.position < self.length then
-        return self.frames[self.current_frame.position + 1]
-    else
-        if self.loop then
-            self.state = "playing"
-        else
-            self.state = "ended"
-        end
+        self.state = "playing"
 
-        return self.frames[1]
+        return self.frames[self.current_frame.position + 1]
+    elseif self.loop then
+        self.state = "looped"
+    else
+        self.state = "ended"
     end
+
+    return self.frames[1]
 end
 
 function Animation:reset()

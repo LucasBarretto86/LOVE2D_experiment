@@ -9,8 +9,8 @@ function love.load()
     player.avatar:setAnimation("idle")
 end
 
-function love.update(dt)
-    player.avatar.animation:play(dt)
+function love.update(deltaTime)
+    player.avatar:playAnimation(deltaTime)
 end
 
 function love.draw()
