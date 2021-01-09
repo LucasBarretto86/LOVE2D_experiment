@@ -7,7 +7,7 @@ function Avatar:constructor(name, width, height)
     self.width = width
     self.height = height
     self.animations = {}
-    self.animation = {}
+    self.animation = nil
 end
 
 function Avatar:addAnimation(label, frames_count, duration, loop, has_sfx, delay)
@@ -29,7 +29,7 @@ function Avatar:setAnimation(label)
         return
     end
 
-    if (label ~= self.animation.label and (not self:hasAnimationPlaying() or self.animation.loop)) then
+    if (self.animation == nil or (self.animation.label ~= label and self.animation:allowedInterruption())) then
         for index = 1, #self.animations, 1 do
             if (self.animations[index].label == string.lower(label)) then
                 self.animation = self.animations[index]
@@ -40,15 +40,11 @@ function Avatar:setAnimation(label)
 end
 
 function Avatar:playAnimation(deltaTime)
-    self.animation:play(deltaTime)
-end
-
-function Avatar:hasAnimationPlaying()
-    if self.animation.state == "playing" or self.animation.state == "looped" then
-        return true
+    if self.animation:isFinished() == true then
+        self:setAnimation("idle") -- whole logic will change to followe player state based on behavioral logics
     end
 
-    return false
+    self.animation:play(deltaTime)
 end
 
 function Avatar:newSFX(label, delay)
