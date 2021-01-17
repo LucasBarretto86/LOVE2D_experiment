@@ -10,6 +10,10 @@ function love.load()
 end
 
 function love.update(deltaTime)
+    if deltaTime > 0.05 or deltaTime < 0.005 then
+        return
+    end
+
     player.avatar:playAnimation(deltaTime)
 end
 
@@ -19,14 +23,14 @@ end
 
 function love.keypressed(key, scancode, isrepeat)
     if key == "space" then
-        player.avatar:setAnimation("jump")
+        Source.avatar:setAnimation("jump")
     elseif key == "left" then
-        player:flip(true)
-        player.avatar:setAnimation("run")
+        Source:flip(true)
+        Source.avatar:setAnimation("run")
     elseif key == "right" then
-        player:flip(false)
-        player.avatar:setAnimation("run")
+        Source:flip(false)
+        Source.avatar:setAnimation("run")
     else
-        player.avatar:setAnimation("idle")
+        Source.avatar:setAnimation("idle")
     end
 end
