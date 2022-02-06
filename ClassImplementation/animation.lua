@@ -1,11 +1,12 @@
 local Frame = require("frame")
 local Animation = Class:create("Animation")
 
-function Animation:constructor(label, spritesheet_path, width, height, length, duration, loop)
+function Animation:constructor(label, spritesheet_path, width, height, length, duration, loop, sfx)
     self.label = string.lower(label or "")
     self.spritesheet = love.graphics.newImage(IMAGES_PATH .. spritesheet_path)
     self.length = length
     self.loop = loop
+    self.sfx = sfx
     self.frames = {}
     self.state = "loaded"
     self.current_frame = {}
@@ -31,36 +32,60 @@ function Animation:setFrames(width, height, length, duration)
 end
 
 function Animation:play(deltaTime)
-    if self.state ~= "ended" then
+    if self.state ~= "finished" then
         self.current_time = self.current_time + deltaTime
-
         if self.current_time >= self.current_frame.duration then
             self.current_time = self.current_time - self.current_frame.duration
-            self.current_frame = self:nextFrame()
+            self:nextFrame()
+        end
+
+        if self.sfx ~= nil then
+            self.sfx:play(self.current_frame.position)
         end
     end
-
-    return self.state
 end
 
 function Animation:nextFrame()
     if self.current_frame.position < self.length then
-        return self.frames[self.current_frame.position + 1]
+        self.state = "playing"
+        self.current_frame = self.frames[self.current_frame.position + 1]
+    elseif self.loop then
+        self.state = "looped"
+        self.current_frame = self.frames[1]
     else
-        if self.loop then
-            self.state = "playing"
-        else
-            self.state = "ended"
-        end
-
-        return self.frames[1]
+        self.state = "finished"
+        self.current_frame = self.frames[1]
     end
+end
+
+function Animation:isPlaying()
+    if self.state == "playing" or self.state == "looped" then
+        return true
+    end
+
+    return false
+end
+
+function Animation:isFinished()
+    if self.state == "finished" then
+        return true
+    end
+
+    return false
 end
 
 function Animation:reset()
     self.state = "loaded"
     self.current_frame = self.frames[1]
     self.current_time = 0
+end
+
+function Animation:allowedInterruption()
+    if not self:isPlaying() or self.loop then
+        return true
+    end
+
+    return false
 end
 
 return Animation
