@@ -1,7 +1,0 @@
-{
-    "Lua.diagnostics.disable": [
-        "trailing-space",
-        "undefined-global",
-        "lowercase-global"
-    ]
-}
