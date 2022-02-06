@@ -1,15 +1,17 @@
-# LUA / LOVE_2D Game development
+# LUA / LOVE Framework
 
-- [LUA / LOVE_2D Game development](#lua--love_2d-game-development)
-  - [LUA Syntax and etc](#lua-syntax-and-etc)
-    - [Operators](#operators)
-      - [`:` navigation operator](#-navigation-operator)
-      - [`#` length operator](#-length-operator)
-    - [For Loop](#for-loop)
-    - [Print](#print)
+- [LUA / LOVE Framework](#lua--love-framework)
+  - [LUA Languange](#lua-languange)
+    - [Syntax](#syntax)
+      - [Functions](#functions)
+      - [Code Block](#code-block)
+      - [`:` self operator](#-self-operator)
+      - [`#` unary operator](#-unary-operator)
+    - [Hello World](#hello-world)
+    - [Loops / Iterators](#loops--iterators)
+      - [For Loop](#for-loop)
     - [Math](#math)
-      - [squares](#squares)
-  - [LOVE_2D Framework](#love_2d-framework)
+  - [LOVE Framework](#love-framework)
   - [Running Game](#running-game)
   - [Configuring general stuff and modules before loads](#configuring-general-stuff-and-modules-before-loads)
   - [Main functions](#main-functions)
@@ -20,8 +22,17 @@
     - [Rectangle](#rectangle)
     - [Circle](#circle)
   - [Class Implementation](#class-implementation)
+  - [References](#references)
 
-## LUA Syntax and etc
+## LUA Languange
+
+Lua (/ˈluːə/ LOO-ə; from Portuguese: lua [ˈlu.(w)ɐ] meaning moon) is a lightweight, high-level, multi-paradigm programming language designed primarily for embedded use in applications. Lua is cross-platform, since the interpreter of compiled bytecode is written in ANSI C, and Lua has a relatively simple C API to embed it into applications.
+
+[References](#references)
+
+### Syntax
+
+#### Functions
 
 Lua syntax is very similar to ruby and python but the keyword for functions is `function` and `end`  not `def` like ruby and python or brackets like other languages
 
@@ -31,6 +42,8 @@ function any_function()
 end
 ```
 
+#### Code Block
+
 Lua also handle with blocks of code like ruby `do` and `end`
 
 ```lua
@@ -39,9 +52,7 @@ for 1 = 0, 10, 1 do
 end
 ```
 
-### Operators
-
-#### `:` navigation operator
+#### `:` self operator
 
 The `:` it's called self operator, is used to implicitily send to a function the caller of this function itself as it's first arg
 
@@ -49,7 +60,7 @@ The `:` it's called self operator, is used to implicitily send to a function the
  image:getHeight();
 ```
 
-#### `#` length operator
+#### `#` unary operator
 
 The `#` it's called unary operator it returns the length from a table type objects = {
 
@@ -59,7 +70,21 @@ The `#` it's called unary operator it returns the length from a table type objec
  image:getHeight();
 ```
 
-### For Loop
+### Hello World
+
+```lua
+print("Hello World")
+```
+
+```shell
+$ lua Learning/hello_world.lua
+
+Hello World
+```
+
+### Loops / Iterators
+
+#### For Loop
 
 for loop in lua is a little bit different, first set the initial state, after you set the minimum or maximum value to be reached and then you set a incrementational ratio
 
@@ -84,21 +109,9 @@ $ lua for_loop.lua
 10
 ```
 
-### Print
-
-```lua
-print("any text")
-```
-
-```shell
-$ lua print.lua
-
-any text
-```
-
 ### Math
 
-#### squares
+Math lib for Lua
 
 ```lua
 math.sqrt(3)
@@ -110,7 +123,7 @@ $ lua Learning/Math/main.lua
 3.0
 ```
 
-## LOVE_2D Framework
+## LOVE Framework
 
 ## Running Game
 
@@ -214,3 +227,10 @@ function Class:getClassname()
 end
 ```
 
+## References
+
+- [Lua (programming language) - Wiki](https://en.wikipedia.org/wiki/Lua_(programming_language))
+- [Lua.org - Official website](https://www.lua.org/)
+- [LÖVE (game engine) - Wiki](https://en.wikipedia.org/wiki/L%C3%B6ve_(game_engine))
+- [LÖVE - Official website](https://love2d.org/)
+- [LÖVE 3D](https://github.com/groverburger/g3d)
