@@ -7,9 +7,14 @@ function love.load()
     player.avatar:addAnimation("run", 10, 0.8, true)
     player.avatar:addAnimation("jump", 10, 0.8, false, true, 2)
     player.avatar:setAnimation("idle")
+    
 end
 
 function love.update(deltaTime)
+    if deltaTime > 0.05 or deltaTime < 0.005 then
+        return
+    end
+
     player.avatar:playAnimation(deltaTime)
 end
 
