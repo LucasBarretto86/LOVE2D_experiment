@@ -1,4 +1,4 @@
-local Frame = require("frame")
+local Frame = require("classes.frame")
 local Animation = Class:create("Animation")
 
 function Animation:constructor(label, spritesheet_path, width, height, length, duration, loop, sfx)

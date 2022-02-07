@@ -1,5 +1,5 @@
 function love.conf(t)
-    require("class")
+    require("lib.class")
     RENDER_SCALE = 4
     ASSETS_PATH = "assets/"
     IMAGES_PATH = ASSETS_PATH .. "images/"

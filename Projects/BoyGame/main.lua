@@ -1,4 +1,4 @@
-local Player = require("player")
+local Player = require("classes/player")
 local player = Player:new(32, 32)
 
 function love.load()
