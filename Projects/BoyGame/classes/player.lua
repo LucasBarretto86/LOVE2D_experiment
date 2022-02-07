@@ -1,4 +1,4 @@
-local Avatar = require("avatar")
+local Avatar = require("classes.avatar")
 local Player = Class:create("Player")
 
 function Player:constructor(width, height, orientation)

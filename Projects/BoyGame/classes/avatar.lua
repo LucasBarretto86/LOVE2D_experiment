@@ -1,5 +1,5 @@
-local Animation = require("animation")
-local SFX = require("sfx")
+local Animation = require("classes.animation")
+local SFX = require("classes.sfx")
 local Avatar = Class:create("Avatar")
 
 function Avatar:constructor(name, width, height)
