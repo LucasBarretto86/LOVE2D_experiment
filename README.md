@@ -1,6 +1,6 @@
-# Learning LÖVE Framework
+# Learning LÖVE
 
-- [Learning LÖVE Framework](#learning-löve-framework)
+- [Learning LÖVE](#learning-löve)
   - [Running Game](#running-game)
   - [Configuring general stuff and modules before loads](#configuring-general-stuff-and-modules-before-loads)
   - [Main functions](#main-functions)
@@ -10,8 +10,15 @@
   - [Drawing shapes](#drawing-shapes)
     - [Rectangle](#rectangle)
     - [Circle](#circle)
-  - [Class Implementation](#class-implementation)
+  - [Implementing class](#implementing-class)
   - [References](#references)
+  - [Snippets](#snippets)
+    - [Centralized Anchors](#centralized-anchors)
+    - [MATH](#math)
+      - [Diference between two "points"](#diference-between-two-points)
+    - [Class Implementation](#class-implementation)
+      - [`class.lua`](#classlua)
+      - [usage `sfx.lua`](#usage-sfxlua)
 
 ## Running Game
 
@@ -84,7 +91,7 @@ love.graphics.circle("line", 16, 16, 8)
 
 Draws a white circle, where it's center x and y coordinate are on pixel 0 from screen then it has radius of 8 pixels each means we have a circile of 16x16.
 
-## Class Implementation
+## Implementing class
 
 Lua doesn't have class orientend structure, since it's based in C, however it's possible to achieve that by creating a local table that will be like a backbone a factory for new tables class-ish.
 
@@ -120,3 +127,89 @@ end
 - [LÖVE (game engine) - Wiki](https://en.wikipedia.org/wiki/L%C3%B6ve_(game_engine))
 - [LÖVE - Official website](https://love2d.org/)
 - [LÖVE 3D](https://github.com/groverburger/g3d)
+
+## Snippets
+
+### Centralized Anchors
+
+!Notice that by standard every obj is drawed from top left corner, that's why it has to be translated!
+
+This is a method to translate obj.x -50% to allow it to be centralized when it gets drawed
+
+```lua
+function getAnchorX(object)
+    return object.x - (object.width / 2)
+end
+
+```lua
+This is a method to translate obj.y -50% to allow it to be centralized when it gets drawed
+
+```lua
+function getAnchorY(object)
+    return object.y - (object.height / 2)
+end
+```
+
+### MATH
+
+#### Diference between two "points"
+
+Method to check if two points(a point is a combination from coordinates x, y) have a delta between their positions
+
+```lua
+function distanceBetween(x1, y1, x2, y2)
+   return math.sqrt((y2 - y1)^2 + (x2 - x1)^2)
+end
+```
+
+### Class Implementation
+
+An example of class implementation a usage
+
+#### `class.lua`
+
+```lua
+Class = {}
+Class.__index = Class
+
+function Class:create(classname)
+    local class = {}
+    class.__index = class
+    class.super = self
+    class.classname = classname
+    setmetatable(class, self)
+    return class
+end
+
+function Class:new(...)
+    local class = setmetatable({}, self)
+    class:constructor(...)
+    return class
+end
+
+function Class:constructor(...)
+end
+
+function Class:getClassname()
+    return self.classname
+end
+```
+
+#### usage `sfx.lua`
+
+```lua
+local Sound = Class:create("SFX")
+function Sound:constructor(label, path, frame_trigger)
+    self.label = label
+    self.frame_trigger = frame_trigger or 0
+    self.sound = love.audio.newSource(SFX_PATH .. path, "static")
+end
+
+function Sound:play(frame_count)
+    if self.frame_trigger == frame_count then
+        love.audio.play(self.sound)
+    end
+end
+
+return Sound
+```
