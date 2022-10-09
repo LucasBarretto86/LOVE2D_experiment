@@ -15,7 +15,7 @@
   - [Snippets](#snippets)
     - [Centralized Anchors](#centralized-anchors)
     - [MATH](#math)
-      - [Diference between two "points"](#diference-between-two-points)
+      - [Difference between two "points"](#difference-between-two-points)
     - [Class Implementation](#class-implementation)
       - [`class.lua`](#classlua)
       - [usage `sfx.lua`](#usage-sfxlua)
@@ -32,7 +32,7 @@ love MyGame
 
 ## Configuring general stuff and modules before loads
 
-Love also accept previews configurantion and modules imports, for that we use a additional file called `conf.lua`, inside this file we call a function `love.conf(t)` where we will put or configuration like window initial width, height, if it will allow joysticks and etc.. There's lots of configurations so all this kind of stuff seems to go there.
+Love also accept previews configuration and modules imports, for that we use a additional file called `conf.lua`, inside this file we call a function `love.conf(t)` where we will put or configuration like window initial width, height, if it will allow joysticks and etc.. There's lots of configurations so all this kind of stuff seems to go there.
 
 ```lua
 function love.conf(t)
@@ -47,7 +47,7 @@ end
 
 ### load
 
-This is a function used to instantiate all global variables, window viewports, resolution and etc in love before the game starts
+This is a function used to instantiate all global variables, window viewport, resolution and etc in love before the game starts
 
 ### update
 
@@ -81,7 +81,7 @@ Love has a very intuitive way to draw shapes it has rectangles, circles, arcs, e
 love.graphics.rectangle("line", 0, 0, 32, 16)
 ```
 
-Draws a white rectangle, where it's initial x and y coordinate are on pixel 0 from screen then it extends horizontally 32 pixels and vertically 16 pixels, this shape is outlined. To maked it filled, the first arg should be `fill`
+Draws a white rectangle, where it's initial x and y coordinate are on pixel 0 from screen then it extends horizontally 32 pixels and vertically 16 pixels, this shape is outlined. To maker it filled, the first arg should be `fill`
 
 ### Circle
 
@@ -89,11 +89,11 @@ Draws a white rectangle, where it's initial x and y coordinate are on pixel 0 fr
 love.graphics.circle("line", 16, 16, 8)
 ```
 
-Draws a white circle, where it's center x and y coordinate are on pixel 0 from screen then it has radius of 8 pixels each means we have a circile of 16x16.
+Draws a white circle, where it's center x and y coordinate are on pixel 0 from screen then it has radius of 8 pixels each means we have a circle of 16x16.
 
 ## Implementing class
 
-Lua doesn't have class orientend structure, since it's based in C, however it's possible to achieve that by creating a local table that will be like a backbone a factory for new tables class-ish.
+Lua doesn't have class oriented structure, since it's based in C, however it's possible to achieve that by creating a local table that will be like a backbone a factory for new tables class-ish.
 
 ```lua
 Class = {}
@@ -132,9 +132,9 @@ end
 
 ### Centralized Anchors
 
-!Notice that by standard every obj is drawed from top left corner, that's why it has to be translated!
+!Notice that by standard every obj is drawn from top left corner, that's why it has to be translated!
 
-This is a method to translate obj.x -50% to allow it to be centralized when it gets drawed
+This is a method to translate obj.x -50% to allow it to be centralized when it gets drawn
 
 ```lua
 function getAnchorX(object)
@@ -142,7 +142,7 @@ function getAnchorX(object)
 end
 
 ```lua
-This is a method to translate obj.y -50% to allow it to be centralized when it gets drawed
+This is a method to translate obj.y -50% to allow it to be centralized when it gets drawn
 
 ```lua
 function getAnchorY(object)
@@ -152,7 +152,7 @@ end
 
 ### MATH
 
-#### Diference between two "points"
+#### Difference between two "points"
 
 Method to check if two points(a point is a combination from coordinates x, y) have a delta between their positions
 
