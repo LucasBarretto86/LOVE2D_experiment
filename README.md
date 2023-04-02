@@ -1,6 +1,7 @@
 # Learning LÖVE
 
 - [Learning LÖVE](#learning-löve)
+  - [Installing Love on Linux](#installing-love-on-linux)
   - [Running Game](#running-game)
   - [Configuring general stuff and modules before loads](#configuring-general-stuff-and-modules-before-loads)
   - [Main functions](#main-functions)
@@ -19,6 +20,12 @@
     - [Class Implementation](#class-implementation)
       - [`class.lua`](#classlua)
       - [usage `sfx.lua`](#usage-sfxlua)
+
+## Installing Love on Linux
+
+```shell
+sudo snap install love
+```
 
 ## Running Game
 
