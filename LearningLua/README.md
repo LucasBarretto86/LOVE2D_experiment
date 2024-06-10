@@ -1,9 +1,5 @@
 # Learning LUA
 
-Lua (/ˈluːə/ LOO-ə; from Portuguese: lua [ˈlu.(w)ɐ] meaning moon) is a lightweight, high-level, multi-paradigm programming language designed primarily for embedded use in applications. Lua is cross-platform, since the interpreter of compiled bytecode is written in ANSI C, and Lua has a relatively simple C API to embed it into applications.
-
-[References](#references)
-
 - [Learning LUA](#learning-lua)
   - [Interactive Mode](#interactive-mode)
     - [Load external files](#load-external-files)
@@ -11,18 +7,29 @@ Lua (/ˈluːə/ LOO-ə; from Portuguese: lua [ˈlu.(w)ɐ] meaning moon) is a lig
   - [Lexical Conventions](#lexical-conventions)
   - [Chunks](#chunks)
   - [Variables](#variables)
+    - [Global variables](#global-variables)
+    - [Local variables](#local-variables)
   - [Types and values](#types-and-values)
     - [String](#string)
     - [Number](#number)
     - [Boolean](#boolean)
     - [Table](#table)
+    - [Array - Numeric indexed tables](#array---numeric-indexed-tables)
   - [Operators](#operators)
+    - [`:` self operator](#-self-operator)
+    - [`#` unary operator](#-unary-operator)
   - [Hello World](#hello-world)
   - [Loops / Iterators](#loops--iterators)
-    - [For Loop](#for-loop)
-  - [if Statement](#if-statement)
+    - [`for` Loop](#for-loop)
+    - [`for in` Loop](#for-in-loop)
+    - [`pair` and `ipair` iterators](#pair-and-ipair-iterators)
+  - [`if` Statement](#if-statement)
   - [Math](#math)
   - [References](#references)
+
+Lua is a lightweight, high-level, multi-paradigm programming language designed primarily for embedded use in applications. Lua is cross-platform, since the interpreter of compiled bytecode is written in ANSI C, and Lua has a relatively simple C API to embed it into applications.
+
+---
 
 ## Interactive Mode
 
@@ -95,52 +102,66 @@ Hello World
 
 ## Lexical Conventions
 
-- Lua is case sentive
+1. **Variable Naming**:
+   - Use lowercase letters and underscores for variable names (snake_case).
+   - Example: `my_variable`, `player_health`, `max_iterations`.
 
-- Do not name functions or variables staring with `_`
+2. **Function Naming**:
+   - Use lowercase letters and underscores for function names (snake_case).
+   - Example: `calculate_damage`, `draw_menu`, `update_player_position`.
 
-- Single cararacter variables are only used for indexes within an iteration
+3. **File and Directory Naming**:
+   - Use lowercase letters and underscores for file and directory names.
+   - Example: `main.lua`, `utils.lua`, `lua_scripts/`, `data_files/`.
 
-- Single underscore (`_`) is a dummy variable like in ruby, it keeps the value from the last function return
+4. **Indentation**:
+   - Use consistent indentation (usually 4 spaces or a tab) for code blocks to improve readability.
 
-- Lua uses the keyword `function` and `end` to define methods
+5. **Commenting**:
+   - Use comments (`--` for single-line comments, `--[[ ... ]]` for multi-line comments) to document your code, explaining its purpose, logic, and any important details.
 
-    ```lua
-    function function_name(args)
-        -- do stuff here
-    end
-    ```
+6. **Global Variables**:
+   - Avoid excessive use of global variables to prevent naming conflicts and improve code maintainability.
+   - Use local variables whenever possible within functions and limit the scope of variables to where they are needed.
+   - Example:
+  
+     ```lua
+     local global_variable = 10
+     function my_function()
+         local local_variable = 20
+     end
+     ```
 
-- Lua handle code blocks similar to ruby using the keywords `do` and `end`
+7. **Code Organization**:
+   - Organize code into logical modules or files based on functionality.
+   - Use modules and require statements to manage dependencies and keep related code together.
+   - Example:
+  
+     ```lua
+     -- main.lua
+     local utils = require("utils")
+     ```
 
-    ```lua
-    for 1 = 0, 10, 1 do
-        -- do stuff here
-    end
-    ```
+8. **Error Handling**:
+   - Use assert or error functions for error handling to catch and handle unexpected conditions in your code.
+   - Handle errors gracefully to prevent crashes and improve user experience.
+   - Example:
 
-- Semicolon may optionally follow any statement, by convetion semicolons are used to separate two or more statements written in the same line
+     ```lua
+     local result = calculate_value()
+     assert(result ~= nil, "Error: Calculation result is nil")
+     ```
 
-- Reserved keywords
+9. **Code Readability**:
+   - Write clear and concise code with meaningful variable and function names.
+   - Use whitespace and formatting to improve readability, such as consistent indentation and spacing.
+   - Example:
 
-    ```nil
-    and       break     do        else      elseif
-    end       false     for       function  if
-    in        local     nil       not       or
-    repeat    return    then      true      until
-    while
-    ```
-
-- To comment a single line is used `--` and for comment blocks `--[[` and  `--]]`
-
-    ```lua
-    print("Hello") -- Single line comment
-
-    --]]
-    -- Block comment
-      print("Hello")
-    --]]
-    ```
+     ```lua
+     local function calculate_total_damage(player)
+         -- Calculate total damage here
+     end
+     ```
 
 ## Chunks
 
@@ -152,7 +173,7 @@ a = 1 ; b = a*2
 
 ## Variables
 
-Global variables
+### Global variables
 
 to set global variables simple name it and assign a value, by convention global variables starts with capital letter
 
@@ -170,7 +191,7 @@ $ lua src/global_variable.lua
 Lucas
 ```
 
-Local variables
+### Local variables
 
 to set local variables use the keyword `local` follow by it's name
 
@@ -249,7 +270,7 @@ Basic `true` and `false`, although `nil` is considered `false` in conditional st
 
 ### Table
 
-Table type in lua an associative array, can be indexed by numers and strings, similar to a hash in ruby and dictionary in python, tables are the only data strucuring mechanism in Lua, there's no regular Array in Lua. Table aren't variables they are objects.
+Table in lua is a general term for Lua's data structure that can hold key-value pairs of various types, including arrays (with numerical indices) and associative arrays (with non-numeric keys). Tables are highly versatile and can be used for a wide range of data storage and manipulation tasks.
 
 You create tables by means of a constructor expression `{}`:
 
@@ -312,9 +333,9 @@ table: 0x55bced1e1ef0
 Johnny
 ```
 
-Numeric indexed tables
+### Array - Numeric indexed tables
 
-Numeric indexed tables is the closes we can get to a regular Array of values, to have numeric indexes tables we have to instanciate which index by hand
+Array typically refers to a table with numerical indices used for storing ordered collections of elements, following Lua's convention of starting indices at 1.
 
 ```lua
 cart = {}
@@ -338,7 +359,7 @@ $ lua src/table.lua
 
 ## Operators
 
-`:` self operator
+### `:` self operator
 
 The `:` it's called self operator, is used to implicitily send to a function the caller of this function itself as it's first arg
 
@@ -346,12 +367,16 @@ The `:` it's called self operator, is used to implicitily send to a function the
  image:getHeight();
 ```
 
-`#` unary operator
+### `#` unary operator
 
-The `#` it's called unary operator it returns the length from a table type
+The `#` it's called unary operator and it's used to returns the length from string or tables
 
 ```lua
+local str = "Hello, Lua!"
+print(#str)  -- Outputs: 12
 
+local tbl = {10, 20, 30, 40}
+print(#tbl)  -- Outputs: 4
 ```
 
 ## Hello World
@@ -368,9 +393,9 @@ Hello World
 
 ## Loops / Iterators
 
-### For Loop
+### `for` Loop
 
-for loop in lua is a little bit different, first set the initial state, after you set the minimum or maximum value to be reached and then you set a incrementational ratio
+`for` loop in lua is a little bit different, first set the initial state, after you set the minimum or maximum value to be reached and then you set a incrementational ratio
 
 ```lua
 for i = 0, 10, 1 do 
@@ -393,7 +418,51 @@ $ lua src/for_loop.lua
 10
 ```
 
-## if Statement
+### `for in` Loop
+
+`for-in` is used to iterate in tables
+
+```lua
+- Notice the usage from iparis to iterate which key/value
+
+local lines = {
+  title = "Green is true",
+  subtitle = "Keep your green friend really close.",
+  content = "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+}
+
+-- pairs for non numeric keys
+for key, value in pairs(lines) do
+  print(key, value)
+end
+```
+
+**Outpu:**
+
+```mono
+title   Green is true
+subtitle        Keep your green friend really close.
+content Lorem ipsum dolor sit amet consectetur adipisicing elit.
+```
+
+### `pair` and `ipair` iterators
+
+**`pairs`:**
+
+Is a iterator function iterates over all key-value pairs in a table, regardless of whether the keys are numerical or not. It does not guarantee any specific order of iteration.
+
+**`ipairs`:**
+
+Is a iterator function specifically iterates over the numerical indices (keys starting from 1) and their corresponding values in the array part of a table. It guarantees that the iteration will be in ascending order of indices.
+
+## `if` Statement
+
+`if` statement on Lua is very straight forward
+
+```lua
+
+local is_green
+```
 
 ## Math
 
@@ -412,5 +481,5 @@ $ lua src/math.lua
 ## References
 
 - [Lua (programming language) - Wiki](https://en.wikipedia.org/wiki/Lua_(programming_language))
-- [Lua.org - Official website](https://www.lua.org/)
+- [Lua.org - Documentation](https://www.lua.org/manual/5.4/)
 - [Game development](https://www.youtube.com/watch?v=I549C6SmUnk)
